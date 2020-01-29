@@ -21,8 +21,8 @@ extension UITabBarItem {
                 return nil
         }
         
-        let imageView = view.subviews.map { $0 as? UIImageView }.flatMap { $0 }.first
-        let label = view.subviews.map { $0 as? UILabel }.flatMap { $0 }.first
+        let imageView = view.subviews.map { $0 as? UIImageView }.compactMap { $0 }.first
+        let label = view.subviews.map { $0 as? UILabel }.compactMap { $0 }.first
         
         let localView = UIView()
         localView.backgroundColor = UIColor.clear

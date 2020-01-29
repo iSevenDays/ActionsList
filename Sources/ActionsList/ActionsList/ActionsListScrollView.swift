@@ -32,7 +32,7 @@ final class ActionsListScrollView: UIScrollView {
         DefaultNotificationCenter.addObserver(
             list,
             selector: #selector(focusedElementChanged(_:)),
-            name: .UIAccessibilityElementFocused,
+            name: UIAccessibility.elementFocusedNotification,
             object: nil)
         
         list.makeNotAccessible()
@@ -103,7 +103,7 @@ final class ActionsListScrollView: UIScrollView {
                         let viewInBounds = view.convert(view.bounds, to: self)
                         return bounds.intersects(viewInBounds)
                     }) {
-                        UIAccessibilityPostNotification(UIAccessibilityLayoutChangedNotification, element)
+                        UIAccessibility.post(notification: UIAccessibility.Notification.layoutChanged, argument: element)
                     }
             })
             return true
@@ -118,7 +118,7 @@ final class ActionsListScrollView: UIScrollView {
     // MARK: - Private methods
     
     @objc private func focusedElementChanged(_ notification: Notification) {
-        if let element = notification.userInfo?[UIAccessibilityFocusedElementKey] as? UIView,
+        if let element = notification.userInfo?[UIAccessibility.focusedElementUserInfoKey] as? UIView,
             element.isDescendant(of: self),
             !bounds.contains(element.convert(element.bounds, to: self)) {
             scrollRectToVisible(element.frame, animated: true)
@@ -137,7 +137,7 @@ final class ActionsListScrollView: UIScrollView {
         widthAnchor.constraint(equalTo: control.widthAnchor).isActive = true
         
         let optionalConstraint = heightAnchor.constraint(equalTo: control.heightAnchor)
-        optionalConstraint.priority = UILayoutPriorityDefaultHigh
+        optionalConstraint.priority = UILayoutPriority.defaultHigh
         optionalConstraint.isActive = true
         
         setContentOffset(CGPoint.zero, animated: false)

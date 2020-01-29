@@ -8,6 +8,6 @@ import UIKit
 extension NSObject {
     func makeNotAccessible() {
         isAccessibilityElement = false
-        accessibilityTraits = UIAccessibilityTraitNone
+        accessibilityTraits = UIAccessibilityTraits.none
     }
 }

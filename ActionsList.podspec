@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
   s.name             = 'ActionsList'
-  s.version          = '0.9.1'
+  s.version          = '0.9.2'
   s.summary          = 'Present Apple QuickActionsMenu-like lists in your app.'
   s.description      = <<-DESC
 ActionsList is an iOS framework for presenting actions lists similar to Apple's Quick Actions menu. It is the best replacement for the Android's floating action button in iOS if your app is following the iOS Design Guidelines.

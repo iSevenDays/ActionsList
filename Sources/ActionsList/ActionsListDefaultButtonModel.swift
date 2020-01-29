@@ -32,10 +32,10 @@ import UIKit
     }
     
     // MARK: - Hashable
-    
-    override public var hashValue: Int {
-        return localizedTitle.hash ^ (image?.hash ?? 0)
-    }
+
+	public override var hash: Int {
+		return localizedTitle.hash ^ (image?.hash ?? 0)
+	}
     
     // MARK: - Public fields
 

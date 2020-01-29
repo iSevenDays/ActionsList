@@ -81,7 +81,7 @@ final class ActionsListContainer: UIView {
         source.makeNotAccessible()
         source.accessibilityElementsHidden = true
         list.source = source
-        list.bringSubview(toFront: list.source)
+        list.bringSubviewToFront(list.source)
         list.onDismiss = onDismissGesture
         list.setupDismissGestureRecognizer()
         
@@ -126,7 +126,7 @@ final class ActionsListContainer: UIView {
         
         setupLimitingConstraints()
         setupListConstraints()
-        bringSubview(toFront: source)
+        bringSubviewToFront(source)
         
         layoutIfNeeded()
         
@@ -159,7 +159,7 @@ final class ActionsListContainer: UIView {
     }
     
     func setupDismissAccessibility(hint: String?) {
-        dismissGestureView.accessibilityTraits = UIAccessibilityTraitNone
+        dismissGestureView.accessibilityTraits = UIAccessibilityTraits.none
         dismissGestureView.accessibilityLabel = hint
     }
     
@@ -175,7 +175,7 @@ final class ActionsListContainer: UIView {
         dismissGestureView.addGestureRecognizer(dismissGestureRecognizer)
         
         addSubview(dismissGestureView)
-        sendSubview(toBack: dismissGestureView)
+        sendSubviewToBack(dismissGestureView)
         dismissGestureView.constraintToSuperview()
     }
     
@@ -203,7 +203,7 @@ final class ActionsListContainer: UIView {
         UIView.animateKeyframes(
             withDuration: appearDuration,
             delay: 0,
-            options: [UIViewKeyframeAnimationOptions(rawValue: UIViewAnimationOptions.curveEaseOut.rawValue)],
+            options: [UIView.KeyframeAnimationOptions(rawValue: UIView.AnimationOptions.curveEaseOut.rawValue)],
             animations: {
                 UIView.addKeyframe(
                     withRelativeStartTime: 0,
@@ -273,15 +273,15 @@ final class ActionsListContainer: UIView {
         switch side {
         case .left:
             let optionalConstraint = listContainerBlurView.leadingAnchor.constraint(equalTo: source.leadingAnchor)
-            optionalConstraint.priority = UILayoutPriorityDefaultLow
+            optionalConstraint.priority = UILayoutPriority.defaultLow
             optionalConstraint.isActive = true
         case .right:
             let optionalConstraint = listContainerBlurView.trailingAnchor.constraint(equalTo: source.trailingAnchor)
-            optionalConstraint.priority = UILayoutPriorityDefaultLow
+            optionalConstraint.priority = UILayoutPriority.defaultLow
             optionalConstraint.isActive = true
         case .center:
             let optionalConstraint = listContainerBlurView.centerXAnchor.constraint(equalTo: source.centerXAnchor)
-            optionalConstraint.priority = UILayoutPriorityDefaultLow
+            optionalConstraint.priority = UILayoutPriority.defaultLow
             optionalConstraint.isActive = true
         }
         

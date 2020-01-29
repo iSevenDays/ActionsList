@@ -4,6 +4,7 @@
 //
 
 import Foundation
+import UIKit
 
 let DefaultNotificationCenter = NotificationCenter.default
 
@@ -17,7 +18,7 @@ let DefaultNotificationCenter = NotificationCenter.default
         DefaultNotificationCenter.addObserver(
             self,
             selector: #selector(reduceTransparencyStatusDidChange),
-            name: .UIAccessibilityReduceTransparencyStatusDidChange,
+            name: UIAccessibility.reduceTransparencyStatusDidChangeNotification,
             object: nil)
     }
     

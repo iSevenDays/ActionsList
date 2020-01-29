@@ -26,7 +26,7 @@ import UIKit
         /// - Note: Do not change to save system look
         @objc public static let common: List = List()
         
-        private static var listBlurStyle: UIBlurEffectStyle {
+        private static var listBlurStyle: UIBlurEffect.Style {
             if #available(iOS 10.0, *) {
                 return .regular
             } else {
@@ -122,7 +122,7 @@ import UIKit
         
         /// Font applied for button's text
         /// - Note: Do not change to save system look
-        @objc public var font: UIFont = UIFont.systemFont(ofSize: 19, weight: UIFontWeightRegular)
+        @objc public var font: UIFont = UIFont.systemFont(ofSize: 19, weight: UIFont.Weight.regular)
         
         static func copyCommon() -> ActionsListAppearance.Button {
             let common = ActionsListAppearance.Button.common

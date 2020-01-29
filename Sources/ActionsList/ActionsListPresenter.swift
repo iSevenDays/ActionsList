@@ -9,8 +9,8 @@ final class ActionsListPresenter: UIView {
     
     // MARK: - Private fields
     
-    private let appearTime: TimeInterval = TimeInterval(UINavigationControllerHideShowBarDuration)
-    private let disappearDuration: TimeInterval = TimeInterval(UINavigationControllerHideShowBarDuration)
+    private let appearTime: TimeInterval = TimeInterval(UINavigationController.hideShowBarDuration)
+    private let disappearDuration: TimeInterval = TimeInterval(UINavigationController.hideShowBarDuration)
     
     private weak var delegate: ActionsListDelegate?
     private var backgroundView: BackgroundViewType!
@@ -91,7 +91,7 @@ final class ActionsListPresenter: UIView {
             if (elements?.count ?? 0) > 1 {
                 element = elements?[1]
             }
-            UIAccessibilityPostNotification(UIAccessibilityScreenChangedNotification, element)
+            UIAccessibility.post(notification: UIAccessibility.Notification.screenChanged, argument: element)
             self?.delegate?.actionsListDidShow?()
             completion?()
         }
@@ -116,7 +116,7 @@ final class ActionsListPresenter: UIView {
         group.notify(queue: DispatchQueue.main) { [weak self] in
             self?.presenter.isUserInteractionEnabled = true
             self?.removeFromSuperview()
-            UIAccessibilityPostNotification(UIAccessibilityScreenChangedNotification, nil)
+            UIAccessibility.post(notification: UIAccessibility.Notification.screenChanged, argument: nil)
             self?.delegate?.actionsListDidHide?()
             completion?()
         }

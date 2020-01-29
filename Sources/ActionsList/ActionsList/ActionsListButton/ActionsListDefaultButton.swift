@@ -90,7 +90,7 @@ extension ActionsListDefaultButton: ActionsListButton {
     
     func update(withModel model: ActionsListDefaultButtonModel) {
         isAccessibilityElement = model.isAccessibilityElement
-        accessibilityTraits = UIAccessibilityTraitButton
+        accessibilityTraits = UIAccessibilityTraits.button
         accessibilityLabel = model.accessibilityLabel
         
         appearance = model.appearance
@@ -114,33 +114,35 @@ extension ActionsListDefaultButton {
         label.numberOfLines = 0
         label.textAlignment = .left
         
-        label.setContentCompressionResistancePriority(UILayoutPriorityRequired, for: .vertical)
-        label.setContentCompressionResistancePriority(UILayoutPriorityRequired, for: .horizontal)
+        label.setContentCompressionResistancePriority(UILayoutPriority.required, for: .vertical)
+        label.setContentCompressionResistancePriority(UILayoutPriority.required, for: .horizontal)
         label.heightAnchor.constraint(greaterThanOrEqualToConstant: minimumLabelHeight).isActive = true
         
         return label
     }
     
     fileprivate func set(localizedTitle: String) {
+		let attrs: [NSAttributedString.Key: Any] = getTitleAttributes()
+
         titleLabel.attributedText = NSAttributedString(
             string: localizedTitle,
-            attributes: getTitleAttributes())
+            attributes: attrs)
     }
     
-    fileprivate func getTitleAttributes() -> [NSAttributedStringKey: Any] {
-        var attributes: [NSAttributedStringKey: Any] = [:]
+    fileprivate func getTitleAttributes() -> [NSAttributedString.Key: Any] {
+        var attributes: [NSAttributedString.Key: Any] = [:]
         
         if isEnabled {
             if isHighlighted {
-                attributes[NSForegroundColorAttributeName] = appearance.highlightedTint
+                attributes[NSAttributedString.Key.foregroundColor] = appearance.highlightedTint
             } else {
-                attributes[NSForegroundColorAttributeName] = appearance.tint
+                attributes[NSAttributedString.Key.foregroundColor] = appearance.tint
             }
         } else {
-            attributes[NSForegroundColorAttributeName] = appearance.disabledTint
+            attributes[NSAttributedString.Key.foregroundColor] = appearance.disabledTint
         }
-        attributes[NSFontAttributeName] = appearance.font
-        attributes[NSKernAttributeName] = 0.5
+        attributes[NSAttributedString.Key.font] = appearance.font
+        attributes[NSAttributedString.Key.kern] = 0.5
         
         return attributes
     }
@@ -154,10 +156,10 @@ extension ActionsListDefaultButton {
         imageView.widthAnchor.constraint(equalToConstant: 35).isActive = true
         imageView.heightAnchor.constraint(equalTo: imageView.widthAnchor).isActive = true
         
-        imageView.setContentHuggingPriority(UILayoutPriorityRequired, for: .horizontal)
-        imageView.setContentHuggingPriority(UILayoutPriorityRequired, for: .vertical)
-        imageView.setContentCompressionResistancePriority(UILayoutPriorityRequired, for: .horizontal)
-        imageView.setContentCompressionResistancePriority(UILayoutPriorityRequired, for: .vertical)
+        imageView.setContentHuggingPriority(UILayoutPriority.required, for: .horizontal)
+        imageView.setContentHuggingPriority(UILayoutPriority.required, for: .vertical)
+        imageView.setContentCompressionResistancePriority(UILayoutPriority.required, for: .horizontal)
+        imageView.setContentCompressionResistancePriority(UILayoutPriority.required, for: .vertical)
         
         return imageView
     }
@@ -350,9 +352,16 @@ extension ActionsListDefaultButton {
 
 #if swift(>=4.0)
     private let UILayoutPriorityRequired = UILayoutPriority.required
-    private let NSForegroundColorAttributeName = NSAttributedStringKey.foregroundColor
-    private let NSFontAttributeName = NSAttributedStringKey.font
-    private let NSKernAttributeName = NSAttributedStringKey.kern
+    private let NSForegroundColorAttributeName = NSAttributedString.Key.foregroundColor
+    private let NSFontAttributeName = NSAttributedString.Key.font
+    private let NSKernAttributeName = NSAttributedString.Key.kern
 #else
     fileprivate typealias NSAttributedStringKey = String
 #endif
+
+// Helper function inserted by Swift 4.2 migrator.
+fileprivate func convertToOptionalNSAttributedStringKeyDictionary(_ input: [String: Any]?) -> [NSAttributedString.Key: Any]? {
+	guard let input = input else { return nil }
+	return Dictionary(uniqueKeysWithValues: input.map { key, value in (NSAttributedString.Key(rawValue: key), value)})
+}
+
